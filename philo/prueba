@@ -1,0 +1,14 @@
+echo PRUEBA 1:
+
+echo
+
+./philo 2 300 200 100
+
+echo
+
+echo PRUEBA 2:
+
+echo
+
+./philo 3 300 100 100
+
