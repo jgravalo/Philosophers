@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 long long	ft_atoll(char *str)
 {
@@ -50,20 +50,6 @@ int	free_arrs(void *f1, void *f2)
 	free(f1);
 	free(f2);
 	return (1);
-}
-
-void	ft_putnbr_fd(long int num, int fd)
-{
-	if (num > 9)
-	{
-		ft_putnbr_fd(num / 10, fd);
-		ft_putnbr_fd(num % 10, fd);
-	}
-	else
-	{
-		num += '0';
-		write(fd, &num, 1);
-	}
 }
 
 int	print_error(int type)

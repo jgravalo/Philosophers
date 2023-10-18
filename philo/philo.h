@@ -66,7 +66,7 @@ long long int	get_time(void);
 
 void			free_mutex(t_rules *rules);
 
-int				check_errors(int ac, char **args);
+int				check_errors(int argc, char **argv);
 
 t_lli			ft_atoll(char *str);
 

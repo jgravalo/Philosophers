@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 static int	init_mutex(t_rules *rules, int n_philo)
 {
@@ -56,7 +56,7 @@ static void	init_philos(t_rules *rules, int n_philo)
 	}
 }
 
-static int	init_rules(t_rules *rules, char **argv, int argc)
+static int	init_rules(t_rules *rules, int argc, char **argv)
 {
 	rules->any_dead = 0;
 	rules->n_philo = ft_atoll(argv[0]);
@@ -88,7 +88,7 @@ int	main(int argc, char **argv)
 
 	if (check_errors(argc - 1, &argv[1]))
 		return (1);
-	if (init_rules(&rules, &argv[1], argc - 1))
+	if (init_rules(&rules, argc - 1, &argv[1]))
 		return (1);
 	if (init_routine(&rules) == 0)
 		return (1);
