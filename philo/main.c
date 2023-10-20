@@ -12,6 +12,14 @@
 
 #include "philo.h"
 
+int	mutex_destroy_aux(t_mutex *m1, t_mutex *m2, t_mutex *m3)
+{
+	pthread_mutex_destroy(m1);
+	pthread_mutex_destroy(m2);
+	pthread_mutex_destroy(m3);
+	return (1);
+}
+
 static int	init_mutex(t_rules *rules, int n_philo)
 {
 	static int	i = -1;
@@ -29,24 +37,14 @@ static int	init_mutex(t_rules *rules, int n_philo)
 		pthread_mutex_destroy(&rules->init);
 		return (1);
 	}
-
 	if (pthread_mutex_init(&rules->assign, NULL))
-	{
-		pthread_mutex_destroy(&rules->life_check);
-		pthread_mutex_destroy(&rules->print);
-		pthread_mutex_destroy(&rules->init);
-		return (1);
-	}
-
+		return (mutex_destroy_aux(&rules->life_check,
+				&rules->print, &rules->init));
 	while (++i < n_philo)
 	{
 		if (pthread_mutex_init(&rules->forks[i], NULL))
-		{
-			pthread_mutex_destroy(&rules->print);
-			pthread_mutex_destroy(&rules->assign);
-			pthread_mutex_destroy(&rules->life_check);
-			return (1);
-		}
+			return (mutex_destroy_aux(&rules->print,
+					&rules->assign, &rules->life_check));
 	}
 	return (0);
 }

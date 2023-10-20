@@ -22,23 +22,23 @@ long long int	get_time(void)
 
 void	print_state(t_philo *philo, char *state)
 {
-	/**/pthread_mutex_lock(&philo->rules->assign);
+	pthread_mutex_lock(&philo->rules->assign);
 	if (philo->rules->any_dead)
 	{
-		/**/pthread_mutex_unlock(&philo->rules->assign);
+		pthread_mutex_unlock(&philo->rules->assign);
 		return ;
 	}
-	/**/pthread_mutex_unlock(&philo->rules->assign);
+	pthread_mutex_unlock(&philo->rules->assign);
 	pthread_mutex_lock(&philo->rules->print);
-	/**/pthread_mutex_lock(&philo->rules->assign);
+	pthread_mutex_lock(&philo->rules->assign);
 	if (!philo->rules->any_dead)
 	{
-		/**/pthread_mutex_unlock(&philo->rules->assign);
+		pthread_mutex_unlock(&philo->rules->assign);
 		printf("%lld %i %s\n", get_time() - \
 				philo->rules->start, philo->id, state);
-		/**/pthread_mutex_lock(&philo->rules->assign);
+		pthread_mutex_lock(&philo->rules->assign);
 	}
-	/**/pthread_mutex_unlock(&philo->rules->assign);
+	pthread_mutex_unlock(&philo->rules->assign);
 	pthread_mutex_unlock(&philo->rules->print);
 }
 
@@ -51,9 +51,9 @@ void	do_sleep(long long time)
 
 void	*set_dead(t_philo *philo, t_rules *rules)
 {
-	/**/pthread_mutex_lock(&philo->rules->assign);
+	pthread_mutex_lock(&philo->rules->assign);
 	rules->any_dead = 1;
-	/**/pthread_mutex_unlock(&philo->rules->assign);
+	pthread_mutex_unlock(&philo->rules->assign);
 	pthread_mutex_lock(&rules->print);
 	printf("%lld %i %s\n", get_time() - rules->start, philo->id, "died");
 	pthread_mutex_unlock(&rules->print);

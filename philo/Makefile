@@ -18,7 +18,7 @@ MK			=	Makefile
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror -fsanitize=thread #-fsanitize=address -fsanitize=thread
+CFLAGS		=	-Wall -Wextra -Werror #-fsanitize=thread #-fsanitize=address -fsanitize=thread
 
 $(OBJ_DIR)%.o	:	%.c #$(MK)
 	$(MKD) $(dir $@)

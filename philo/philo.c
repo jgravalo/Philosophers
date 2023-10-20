@@ -25,10 +25,10 @@ static int	routine_eating(t_philo *philo)
 	print_state(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->rules->life_check);
 	print_state(philo, "is eating");
-	/**/pthread_mutex_lock(&philo->rules->assign);
+	pthread_mutex_lock(&philo->rules->assign);
 	philo->times_eat++;
 	philo->last_eat = get_time();
-	/**/pthread_mutex_unlock(&philo->rules->assign);
+	pthread_mutex_unlock(&philo->rules->assign);
 	pthread_mutex_unlock(&philo->rules->life_check);
 	do_sleep(philo->rules->to_eat);
 	pthread_mutex_unlock(philo->fork1);
@@ -45,19 +45,19 @@ static void	*routine(t_philo *philo)
 	pthread_mutex_unlock(&philo->rules->init);
 	if (!(philo->id % 2))
 		do_sleep(philo->rules->to_eat);
-	/**/pthread_mutex_lock(&philo->rules->assign);
+	pthread_mutex_lock(&philo->rules->assign);
 	while (!philo->rules->any_dead && !(philo->rules->n_eats != -1 \
 		&& philo->times_eat == philo->rules->n_eats))
 	{
-		/**/pthread_mutex_unlock(&philo->rules->assign);
+		pthread_mutex_unlock(&philo->rules->assign);
 		print_state(philo, "is thinking");
 		if (routine_eating(philo))
 			break ;
 		print_state(philo, "is sleeping");
 		do_sleep(philo->rules->to_sleep);
-		/**/pthread_mutex_lock(&philo->rules->assign);
+		pthread_mutex_lock(&philo->rules->assign);
 	}
-	/**/pthread_mutex_unlock(&philo->rules->assign);
+	pthread_mutex_unlock(&philo->rules->assign);
 	return (NULL);
 }
 
@@ -74,10 +74,10 @@ static void	routine_loop(t_rules *rules)
 			i = 0;
 			t_eats = 0;
 		}
-		/**/pthread_mutex_lock(&rules->assign);
+		pthread_mutex_lock(&rules->assign);
 		if (rules->philos[i].times_eat == rules->n_eats)
 			t_eats++;
-		/**/pthread_mutex_unlock(&rules->assign);
+		pthread_mutex_unlock(&rules->assign);
 		if (t_eats == rules->n_philo || !rules->n_eats)
 			break ;
 		pthread_mutex_lock(&rules->life_check);
