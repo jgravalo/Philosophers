@@ -29,11 +29,21 @@ static int	init_mutex(t_rules *rules, int n_philo)
 		pthread_mutex_destroy(&rules->init);
 		return (1);
 	}
+
+	if (pthread_mutex_init(&rules->assign, NULL))
+	{
+		pthread_mutex_destroy(&rules->life_check);
+		pthread_mutex_destroy(&rules->print);
+		pthread_mutex_destroy(&rules->init);
+		return (1);
+	}
+
 	while (++i < n_philo)
 	{
 		if (pthread_mutex_init(&rules->forks[i], NULL))
 		{
 			pthread_mutex_destroy(&rules->print);
+			pthread_mutex_destroy(&rules->assign);
 			pthread_mutex_destroy(&rules->life_check);
 			return (1);
 		}

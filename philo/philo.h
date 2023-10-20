@@ -30,6 +30,7 @@ typedef struct s_philo	t_philo;
 
 struct s_rules {
 	t_mutex		print;
+	t_mutex		assign;
 	t_mutex		init;
 	t_mutex		life_check;
 	t_mutex		*forks;
